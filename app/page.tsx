@@ -14,7 +14,7 @@ const monthsData = [
   {
     mes: 1,
     nome: "Junho",
-    imagem: "/fotos/24-06.JPG",
+    imagem: "/fotos/24-06.jpg",
     mensagem: "Junho: O Vale ficou pequeno!",
     data: "10/06/2024",
     cor: "#90EE90",
@@ -22,7 +22,7 @@ const monthsData = [
   {
     mes: 2,
     nome: "Julho",
-    imagem: "/fotos/24-07.JPG",
+    imagem: "/fotos/24-07.jpg",
     mensagem: "Julho: A raposa finalmente chegou nas uvas!",
     data: "06/07/2024",
     cor: "#98FB98",
@@ -30,7 +30,7 @@ const monthsData = [
   {
     mes: 3,
     nome: "Agosto",
-    imagem: "/fotos/24-08.JPG",
+    imagem: "/fotos/24-08.jpg",
     mensagem: "Agosto: Primeiro vôo com esse avião!",
     data: "24/08/2024",
     cor: "#F0FFF0",
@@ -38,7 +38,7 @@ const monthsData = [
   {
     mes: 4,
     nome: "Setembro",
-    imagem: "/fotos/24-09.JPG",
+    imagem: "/fotos/24-09.jpg",
     mensagem: "Setembro: Férias merecedíssimas com essa deusa GREGA!",
     data: "27/09/2024",
     cor: "#ADFF2F",
@@ -46,7 +46,7 @@ const monthsData = [
   {
     mes: 5,
     nome: "Outubro",
-    imagem: "/fotos/24-10.JPG",
+    imagem: "/fotos/24-10.jpg",
     mensagem: "Outubro: Nas ladeiras de Olinda, só vejo você!",
     data: "11/10/2024",
     cor: "#9AFF9A",
@@ -54,7 +54,7 @@ const monthsData = [
   {
     mes: 6,
     nome: "Novembro",
-    imagem: "/fotos/24-11.JPG",
+    imagem: "/fotos/24-11.jpg",
     mensagem: "Novembro: A verdadeira escultura sempre esteve do meu lado!",
     data: "09/11/2024",
     cor: "#00FF7F",
@@ -70,7 +70,7 @@ const monthsData = [
   {
     mes: 8,
     nome: "Janeiro",
-    imagem: "/fotos/25-01.JPG",
+    imagem: "/fotos/25-01.jpg",
     mensagem: "Janeiro: Te amarei de Janeiro a Janeiro!",
     data: "26/01/2025",
     cor: "#32CD32",
@@ -78,7 +78,7 @@ const monthsData = [
   {
     mes: 9,
     nome: "Fevereiro",
-    imagem: "/fotos/25-02.JPG",
+    imagem: "/fotos/25-02.jpg",
     mensagem: "Fevereiro: Só tem graça destramelar com você!",
     data: "08/02/2025",
     cor: "#00FA9A",
@@ -94,7 +94,7 @@ const monthsData = [
   {
     mes: 11,
     nome: "Abril",
-    imagem: "/fotos/25-04.JPG",
+    imagem: "/fotos/25-04.jpg",
     mensagem: "Abril: Não poderia faltar uma no feriado nacional!",
     data: "25/04/2025",
     cor: "#6B8E23",
@@ -102,7 +102,7 @@ const monthsData = [
   {
     mes: 12,
     nome: "Maio",
-    imagem: "/fotos/25-05.JPG",
+    imagem: "/fotos/25-05.jpg",
     mensagem: "Maio: Sempre incrível dividir as loucuras da vida contigo!",
     data: "20/05/2025",
     cor: "#8FBC8F",
