@@ -3,6 +3,7 @@ services:
     name: romantic-aniversary
     env: node
     plan: free
+    branch: main
     buildCommand: pnpm install && pnpm build
     startCommand: pnpm start
     envVars:
