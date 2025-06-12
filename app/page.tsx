@@ -190,7 +190,11 @@ const MusicPlayer = () => {
       if (isPlaying) {
         audioRef.current.pause()
       } else {
-        audioRef.current.play()
+        audioRef.current.play().catch(error => {
+          console.error("Erro ao reproduzir áudio:", error);
+          // Muitos navegadores bloqueiam reprodução automática sem interação do usuário
+          // Esse catch garante que erros sejam tratados adequadamente
+        })
       }
       setIsPlaying(!isPlaying)
     }
@@ -207,14 +211,16 @@ const MusicPlayer = () => {
   return (
     <div className="fixed bottom-4 right-4 bg-white/90 backdrop-blur-sm rounded-full p-3 shadow-lg border border-green-200 z-40">
       <audio ref={audioRef} loop>
-        <source src="/placeholder-audio.mp3" type="audio/mpeg" />
-        {/* Substitua por uma URL de música romântica real */}
+        <source src="/audio/fundo.mp3" type="audio/mpeg" />
+        Seu navegador não suporta áudio HTML5
       </audio>
 
       <div className="flex items-center space-x-3">
         <button
           onClick={togglePlay}
           className="w-10 h-10 bg-green-500 hover:bg-green-600 text-white rounded-full flex items-center justify-center transition-colors"
+          aria-label={isPlaying ? "Pausar música" : "Tocar música"}
+          title={isPlaying ? "Pausar música" : "Tocar música"}
         >
           {isPlaying ? "⏸️" : "▶️"}
         </button>
@@ -229,6 +235,8 @@ const MusicPlayer = () => {
             value={volume}
             onChange={handleVolumeChange}
             className="w-16 h-1 bg-green-200 rounded-lg appearance-none cursor-pointer"
+            aria-label="Volume da música"
+            title="Ajustar volume"
           />
         </div>
       </div>
