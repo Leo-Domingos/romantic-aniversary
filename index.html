@@ -1,0 +1,828 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nossos 12 Meses de Magia</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        /* CSS Reset and Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-gradient: linear-gradient(135deg, #fff0f5 0%, #ffe4e1 100%);
+            --accent-color: #d87093;
+            --text-dark: #4a4a4a;
+            --text-light: #666;
+            --shadow-soft: 0 10px 30px rgba(216, 112, 147, 0.1);
+            --shadow-hover: 0 20px 40px rgba(216, 112, 147, 0.2);
+            
+            /* System font stacks for romantic feel */
+            --font-heading: 'Georgia', 'Times New Roman', serif;
+            --font-body: 'Helvetica Neue', 'Arial', sans-serif;
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+        }
+
+        body {
+            font-family: var(--font-body);
+            background: var(--primary-gradient);
+            color: var(--text-dark);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Loading Animation */
+        .loader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--primary-gradient);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            transition: opacity 0.5s ease;
+        }
+
+        .loader.hidden {
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .heart-loader {
+            font-size: 3rem;
+            color: var(--accent-color);
+            animation: heartbeat 1.5s ease-in-out infinite;
+        }
+
+        @keyframes heartbeat {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.2); }
+        }
+
+        /* Floating Hearts Animation */
+        .floating-hearts {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .heart-particle {
+            position: absolute;
+            color: var(--accent-color);
+            font-size: 1rem;
+            opacity: 0;
+            animation: floatUp 3s ease-out forwards;
+        }
+
+        @keyframes floatUp {
+            0% {
+                opacity: 1;
+                transform: translateY(0) rotate(0deg);
+            }
+            100% {
+                opacity: 0;
+                transform: translateY(-100px) rotate(360deg);
+            }
+        }
+
+        /* Header Styles */
+        .hero-header {
+            position: relative;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            background: var(--primary-gradient);
+            overflow: hidden;
+            cursor: pointer;
+        }
+
+        .hero-header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="hearts" x="0" y="0" width="20" height="20" patternUnits="userSpaceOnUse"><text x="10" y="15" text-anchor="middle" fill="%23d87093" opacity="0.1" font-size="12">♥</text></pattern></defs><rect width="100" height="100" fill="url(%23hearts)"/></svg>');
+            animation: backgroundFloat 20s ease-in-out infinite;
+        }
+
+        @keyframes backgroundFloat {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .hero-title {
+            font-family: var(--font-heading);
+            font-size: clamp(2.5rem, 8vw, 4rem);
+            font-weight: 700;
+            color: var(--accent-color);
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+            animation: fadeInUp 1s ease-out;
+        }
+
+        .hero-subtitle {
+            font-size: clamp(1rem, 4vw, 1.5rem);
+            color: var(--text-light);
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            animation: fadeInUp 1s ease-out 0.3s both;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Timeline Section */
+        .timeline-section {
+            padding: 4rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            font-family: var(--font-heading);
+            font-size: clamp(2rem, 6vw, 3rem);
+            text-align: center;
+            color: var(--accent-color);
+            margin-bottom: 3rem;
+        }
+
+        .timeline-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-bottom: 4rem;
+        }
+
+        @media (max-width: 768px) {
+            .timeline-grid {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+        }
+
+        /* Card Styles */
+        .month-card {
+            perspective: 1000px;
+            height: 350px;
+        }
+
+        .card-inner {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            text-align: center;
+            transition: transform 0.6s;
+            transform-style: preserve-3d;
+            cursor: pointer;
+        }
+
+        .month-card:hover .card-inner,
+        .month-card.flipped .card-inner {
+            transform: rotateY(180deg);
+        }
+
+        .card-front, .card-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            border-radius: 20px;
+            box-shadow: var(--shadow-soft);
+            transition: box-shadow 0.3s ease;
+        }
+
+        .card-front {
+            background: white;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 2rem;
+        }
+
+        .card-back {
+            background: linear-gradient(135deg, var(--accent-color), #ff69b4);
+            color: white;
+            transform: rotateY(180deg);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 2rem;
+        }
+
+        .month-card:hover {
+            transform: translateY(-10px);
+        }
+
+        .month-card:hover .card-front,
+        .month-card:hover .card-back {
+            box-shadow: var(--shadow-hover);
+        }
+
+        .card-image {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-bottom: 1rem;
+            border: 4px solid var(--accent-color);
+        }
+
+        .card-month {
+            font-family: var(--font-heading);
+            font-size: 1.5rem;
+            color: var(--accent-color);
+            margin-bottom: 0.5rem;
+        }
+
+        .card-heart {
+            font-size: 2rem;
+            color: var(--accent-color);
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+
+        .card-message {
+            font-size: 1.1rem;
+            line-height: 1.5;
+            margin-bottom: 1rem;
+            text-align: center;
+        }
+
+        .card-date {
+            font-size: 0.9rem;
+            opacity: 0.9;
+            font-style: italic;
+        }
+
+        /* Footer Styles */
+        .romantic-footer {
+            background: linear-gradient(135deg, var(--accent-color), #ff69b4);
+            color: white;
+            padding: 4rem 2rem;
+            text-align: center;
+        }
+
+        .footer-message {
+            font-family: var(--font-heading);
+            font-size: clamp(1.2rem, 4vw, 2rem);
+            margin-bottom: 2rem;
+            font-style: italic;
+        }
+
+        .cta-button {
+            display: inline-block;
+            padding: 1rem 2rem;
+            background: white;
+            color: var(--accent-color);
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: left 0.5s;
+        }
+
+        .cta-button:hover::before {
+            left: 100%;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+        }
+
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 10000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.5);
+            backdrop-filter: blur(5px);
+        }
+
+        .modal-content {
+            background: white;
+            margin: 10% auto;
+            padding: 2rem;
+            border-radius: 20px;
+            width: 90%;
+            max-width: 500px;
+            position: relative;
+            animation: modalSlideIn 0.3s ease-out;
+        }
+
+        @keyframes modalSlideIn {
+            from {
+                opacity: 0;
+                transform: translateY(-50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .close {
+            position: absolute;
+            right: 1rem;
+            top: 1rem;
+            font-size: 2rem;
+            cursor: pointer;
+            color: var(--accent-color);
+        }
+
+        .modal h2 {
+            font-family: var(--font-heading);
+            color: var(--accent-color);
+            margin-bottom: 1rem;
+        }
+
+        .form-group {
+            margin-bottom: 1rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: var(--text-dark);
+            font-weight: 600;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 0.75rem;
+            border: 2px solid #eee;
+            border-radius: 10px;
+            font-family: var(--font-body);
+            transition: border-color 0.3s ease;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--accent-color);
+        }
+
+        .submit-btn {
+            background: var(--accent-color);
+            color: white;
+            padding: 0.75rem 2rem;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .submit-btn:hover {
+            background: #c76b87;
+            transform: translateY(-2px);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .hero-header {
+                height: 80vh;
+                padding: 2rem 1rem;
+            }
+            
+            .timeline-section {
+                padding: 2rem 1rem;
+            }
+            
+            .month-card {
+                height: 300px;
+            }
+            
+            .romantic-footer {
+                padding: 2rem 1rem;
+            }
+        }
+
+        /* Accessibility */
+        @media (prefers-reduced-motion: reduce) {
+            .card-inner {
+                transition: none;
+            }
+            
+            .month-card:hover {
+                transform: none;
+            }
+            
+            .heart-particle {
+                animation: none;
+            }
+        }
+
+        /* Focus styles for accessibility */
+        .month-card:focus,
+        .cta-button:focus {
+            outline: 3px solid var(--accent-color);
+            outline-offset: 2px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Loading Screen -->
+    <div class="loader" id="loader">
+        <i class="fas fa-heart heart-loader"></i>
+    </div>
+
+    <!-- Floating Hearts Container -->
+    <div class="floating-hearts" id="floatingHearts"></div>
+
+    <!-- Hero Header -->
+    <header class="hero-header" id="heroHeader">
+        <h1 class="hero-title">Nossos 12 Meses de Magia</h1>
+        <p class="hero-subtitle">Cada instante ao seu lado é um novo capítulo do nosso conto de fadas</p>
+    </header>
+
+    <!-- Timeline Section -->
+    <section class="timeline-section">
+        <h2 class="section-title">Nossa Jornada de Amor</h2>
+        <div class="timeline-grid" id="timelineGrid">
+            <!-- Cards will be generated by JavaScript -->
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="romantic-footer">
+        <p class="footer-message">"Nosso amor é o verso que falta em todos os poemas..."</p>
+        <a href="#" class="cta-button" id="ctaButton">
+            <i class="fas fa-heart"></i> Escrever Nosso Próximo Capítulo
+        </a>
+    </footer>
+
+    <!-- Modal -->
+    <div id="modal" class="modal">
+        <div class="modal-content">
+            <span class="close" id="closeModal">&times;</span>
+            <h2><i class="fas fa-heart"></i> Nosso Próximo Capítulo</h2>
+            <form id="contactForm">
+                <div class="form-group">
+                    <label for="name">Nome:</label>
+                    <input type="text" id="name" name="name" required>
+                </div>
+                <div class="form-group">
+                    <label for="email">E-mail:</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+                <div class="form-group">
+                    <label for="experience">Que experiência romântica você gostaria de viver?</label>
+                    <textarea id="experience" name="experience" rows="4" placeholder="Descreva sua experiência romântica dos sonhos..."></textarea>
+                </div>
+                <button type="submit" class="submit-btn">
+                    <i class="fas fa-paper-plane"></i> Enviar Sonho
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        // Months data
+        const monthsData = [
+            {
+                mes: 1,
+                nome: "Janeiro",
+                imagem: "/placeholder.svg?height=150&width=150",
+                mensagem: "Janeiro: O primeiro olhar que virou eternidade...",
+                data: "15/01/2024"
+            },
+            {
+                mes: 2,
+                nome: "Fevereiro",
+                imagem: "/placeholder.svg?height=150&width=150",
+                mensagem: "Fevereiro: Nosso primeiro Valentine's Day juntos ♥",
+                data: "14/02/2024"
+            },
+            {
+                mes: 3,
+                nome: "Março",
+                imagem: "/placeholder.svg?height=150&width=150",
+                mensagem: "Março: Quando descobrimos que somos almas gêmeas",
+                data: "20/03/2024"
+            },
+            {
+                mes: 4,
+                nome: "Abril",
+                imagem: "/placeholder.svg?height=150&width=150",
+                mensagem: "Abril: Nossa primeira viagem juntos foi mágica",
+                data: "10/04/2024"
+            },
+            {
+                mes: 5,
+                nome: "Maio",
+                imagem: "/placeholder.svg?height=150&width=150",
+                mensagem: "Maio: O mês que disse 'eu te amo' pela primeira vez",
+                data: "05/05/2024"
+            },
+            {
+                mes: 6,
+                nome: "Junho",
+                imagem: "/placeholder.svg?height=150&width=150",
+                mensagem: "Junho: Nosso primeiro verão de amor infinito",
+                data: "21/06/2024"
+            },
+            {
+                mes: 7,
+                nome: "Julho",
+                imagem: "/placeholder.svg?height=150&width=150",
+                mensagem: "Julho: Cada pôr do sol era mais belo ao seu lado",
+                data: "15/07/2024"
+            },
+            {
+                mes: 8,
+                nome: "Agosto",
+                imagem: "/placeholder.svg?height=150&width=150",
+                mensagem: "Agosto: O mês que conheci sua família adorável",
+                data: "08/08/2024"
+            },
+            {
+                mes: 9,
+                nome: "Setembro",
+                imagem: "/placeholder.svg?height=150&width=150",
+                mensagem: "Setembro: Quando decidimos morar juntos ♥",
+                data: "12/09/2024"
+            },
+            {
+                mes: 10,
+                nome: "Outubro",
+                imagem: "/placeholder.svg?height=150&width=150",
+                mensagem: "Outubro: Halloween foi mais doce com você",
+                data: "31/10/2024"
+            },
+            {
+                mes: 11,
+                nome: "Novembro",
+                imagem: "/placeholder.svg?height=150&width=150",
+                mensagem: "Novembro: Gratidão por ter você em minha vida",
+                data: "25/11/2024"
+            },
+            {
+                mes: 12,
+                nome: "Dezembro",
+                imagem: "/placeholder.svg?height=150&width=150",
+                mensagem: "Dezembro: Nosso primeiro Natal juntos foi perfeito",
+                data: "25/12/2024"
+            }
+        ];
+
+        // DOM Elements
+        const loader = document.getElementById('loader');
+        const heroHeader = document.getElementById('heroHeader');
+        const timelineGrid = document.getElementById('timelineGrid');
+        const floatingHearts = document.getElementById('floatingHearts');
+        const modal = document.getElementById('modal');
+        const ctaButton = document.getElementById('ctaButton');
+        const closeModal = document.getElementById('closeModal');
+        const contactForm = document.getElementById('contactForm');
+
+        // Initialize the website
+        document.addEventListener('DOMContentLoaded', function() {
+            // Hide loader after 2 seconds
+            setTimeout(() => {
+                loader.classList.add('hidden');
+            }, 2000);
+
+            // Generate timeline cards
+            generateTimelineCards();
+
+            // Add event listeners
+            setupEventListeners();
+
+            // Setup intersection observer for animations
+            setupIntersectionObserver();
+        });
+
+        // Generate timeline cards
+        function generateTimelineCards() {
+            monthsData.forEach((month, index) => {
+                const card = createMonthCard(month, index);
+                timelineGrid.appendChild(card);
+            });
+        }
+
+        // Create individual month card
+        function createMonthCard(month, index) {
+            const card = document.createElement('div');
+            card.className = 'month-card';
+            card.setAttribute('tabindex', '0');
+            card.setAttribute('role', 'button');
+            card.setAttribute('aria-label', `Mês ${month.nome}: ${month.mensagem}`);
+            
+            card.innerHTML = `
+                <div class="card-inner">
+                    <div class="card-front">
+                        <img src="${month.imagem}" alt="Foto de ${month.nome}" class="card-image" loading="lazy">
+                        <h3 class="card-month">${month.nome}</h3>
+                        <i class="fas fa-heart card-heart"></i>
+                    </div>
+                    <div class="card-back">
+                        <p class="card-message">${month.mensagem}</p>
+                        <p class="card-date">${month.data}</p>
+                    </div>
+                </div>
+            `;
+
+            // Add click/touch event for mobile
+            card.addEventListener('click', () => {
+                card.classList.toggle('flipped');
+            });
+
+            // Add keyboard support
+            card.addEventListener('keydown', (e) => {
+                if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    card.classList.toggle('flipped');
+                }
+            });
+
+            return card;
+        }
+
+        // Setup event listeners
+        function setupEventListeners() {
+            // Hero header click for floating hearts
+            heroHeader.addEventListener('click', createFloatingHearts);
+
+            // Modal events
+            ctaButton.addEventListener('click', (e) => {
+                e.preventDefault();
+                modal.style.display = 'block';
+                document.body.style.overflow = 'hidden';
+            });
+
+            closeModal.addEventListener('click', closeModalFunction);
+
+            window.addEventListener('click', (e) => {
+                if (e.target === modal) {
+                    closeModalFunction();
+                }
+            });
+
+            // Form submission
+            contactForm.addEventListener('submit', handleFormSubmission);
+
+            // Keyboard accessibility for modal
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape' && modal.style.display === 'block') {
+                    closeModalFunction();
+                }
+            });
+        }
+
+        // Create floating hearts effect
+        function createFloatingHearts(e) {
+            const rect = heroHeader.getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
+
+            for (let i = 0; i < 5; i++) {
+                setTimeout(() => {
+                    const heart = document.createElement('div');
+                    heart.className = 'heart-particle';
+                    heart.innerHTML = '♥';
+                    heart.style.left = (x + (Math.random() - 0.5) * 100) + 'px';
+                    heart.style.top = y + 'px';
+                    
+                    floatingHearts.appendChild(heart);
+
+                    // Remove heart after animation
+                    setTimeout(() => {
+                        if (heart.parentNode) {
+                            heart.parentNode.removeChild(heart);
+                        }
+                    }, 3000);
+                }, i * 100);
+            }
+        }
+
+        // Close modal function
+        function closeModalFunction() {
+            modal.style.display = 'none';
+            document.body.style.overflow = 'auto';
+        }
+
+        // Handle form submission
+        function handleFormSubmission(e) {
+            e.preventDefault();
+            
+            const formData = new FormData(contactForm);
+            const name = formData.get('name');
+            const email = formData.get('email');
+            const experience = formData.get('experience');
+
+            // Simple email validation
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailRegex.test(email)) {
+                alert('Por favor, insira um e-mail válido.');
+                return;
+            }
+
+            // Simulate form submission
+            alert(`Obrigado, ${name}! Seu sonho romântico foi enviado com amor. ♥`);
+            contactForm.reset();
+            closeModalFunction();
+        }
+
+        // Setup intersection observer for scroll animations
+        function setupIntersectionObserver() {
+            const observerOptions = {
+                threshold: 0.1,
+                rootMargin: '0px 0px -50px 0px'
+            };
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.opacity = '1';
+                        entry.target.style.transform = 'translateY(0)';
+                    }
+                });
+            }, observerOptions);
+
+            // Observe all month cards
+            document.querySelectorAll('.month-card').forEach(card => {
+                card.style.opacity = '0';
+                card.style.transform = 'translateY(30px)';
+                card.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+                observer.observe(card);
+            });
+        }
+
+        // Performance optimization: Lazy load images
+        if ('IntersectionObserver' in window) {
+            const imageObserver = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const img = entry.target;
+                        img.src = img.dataset.src || img.src;
+                        img.classList.remove('lazy');
+                        imageObserver.unobserve(img);
+                    }
+                });
+            });
+
+            document.querySelectorAll('img[loading="lazy"]').forEach(img => {
+                imageObserver.observe(img);
+            });
+        }
+    </script>
+</body>
+</html>
