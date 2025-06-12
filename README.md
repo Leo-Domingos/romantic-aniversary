@@ -2,6 +2,8 @@
 
 Um site para celebrar 12 meses de relacionamento com fotos, mensagens e momentos especiais.
 
+[![Deploy to Render](https://render.com/images/deploy-to-render-button.svg)](https://render.com/deploy)
+
 ## Funcionalidade de Mensagens e GitHub
 
 Este projeto salva as mensagens como arquivos de texto na pasta `public/mensagens_do_futuro` e **automaticamente** adiciona cada nova mensagem ao repositório GitHub. Isso garante que:
@@ -70,4 +72,5 @@ Para que o commit e push automático funcionem no Render, é necessário:
 
 - Next.js 15
 - React 19
-- Tailwind CSS 
+- Tailwind CSS
+- GitHub API 
